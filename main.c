@@ -87,7 +87,7 @@ int main(int argc, char** argv) {
     xpath_bible_ver = xmlXPathEvalExpression(XPATH_BIBLE_VERSION_EXPR, xpath_ctx); 
 
     if (!(xpath_verse) || !(xpath_location) || !(xpath_bible_ver)) {
-        fprintf("Failed to evaluate one or more XPath expressions at line %d\n", __LINE__); 
+        fprintf(stderr, "Failed to evaluate one or more XPath expressions at line %d\n", __LINE__); 
         abort();
     }
 
@@ -95,9 +95,6 @@ int main(int argc, char** argv) {
     printf("%s", xpath_verse->nodesetval->nodeTab[0]->content); // The verse
     printf("%s ", xpath_location->nodesetval->nodeTab[0]->content); // ... Followed by the location
     printf("(%s)\n", xpath_bible_ver->nodesetval->nodeTab[0]->content);  // ... and the the version in parenthesis
-
-    // Wait for user input before cleanup (to keep window open on DOS systems)
-    getchar();
 
     // Perform all cleanup and exit!
     xmlXPathFreeObject(xpath_verse);
